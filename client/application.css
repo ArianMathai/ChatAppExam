@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+}
+
+#root {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Remove 'auto' to give more space to the main content */
+    min-height: 100vh;
+}
+
+main{
+    min-width: 80%;
+    max-width: 400px;
+    margin-inline: auto;
+    margin-block: 1em;
+    border-radius: 1em;
+    height: 90vh;
+
+}
+
+
+footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+.google-button {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4285f4; /* Google's blue color */
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    text-align: center;
+}
+
+.google-button:hover {
+    background-color: #357ae8; /* Darker blue on hover */
+}
+header,
+nav,
+footer{
+    padding-inline: 1em;
+}
+
+nav {
+    background-color: coral;
+    display: flex;
+    column-gap: 1em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-block: 0.25em;
+}
+nav a{
+    color:white;
+    text-decoration: none;
+}
