@@ -1,8 +1,9 @@
 import AppRoutes from "./AppRoutes";
 import {LoginContext} from "../context/LoginContext";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import * as dotenv from 'dotenv';
+import Logout from "./Logout";
 
 
 function App(){
@@ -30,15 +31,20 @@ function App(){
 
     return(
         <LoginContext.Provider value={{user, loadUser, client_id: client_id}}>
-            <header>Welcome to the google login page</header>
+            <header>
+                <h2>Welcome to my exam</h2>
+            </header>
             <nav>
                 <Link to={"/"}>Home</Link>
-                <Link to={"/main"}>Main page</Link>
-                <Link to={"/logout"}>Logout</Link>
+                <Link to={"/tasks"}>Tasks</Link>
+                {!user?.email ? <Link to={"/login"}>Login</Link>
+                : <Logout/>}
 
             </nav>
 
-            <main><AppRoutes/></main>
+            <main>
+                <AppRoutes/>
+            </main>
 
             <footer>Made by Arian</footer>
         </LoginContext.Provider>

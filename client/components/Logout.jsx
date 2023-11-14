@@ -24,11 +24,9 @@ function Logout(){
     }
 
     return (
-        <>
-        <h1>Hei</h1>
+
             <Link to={"/"} onClick={(e) => handleLogout(e)}>Logout</Link>
 
-        </>
     )
 }
 

@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import {loginRoutes} from "./controller/loginRoutes.js";
 import cookieParser from "cookie-parser";
 import * as dotenv from 'dotenv';
+import {taskRoutes} from "./controller/taskRoutes.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 
 app.use("/api/login", loginRoutes);
+app.use("/api/tasks", taskRoutes);
 
 app.use(express.static("../client/dist"))
 
