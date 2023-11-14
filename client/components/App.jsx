@@ -38,7 +38,7 @@ function App(){
                 <Link to={"/"}>Home</Link>
                 <Link to={"/tasks"}>Tasks</Link>
                 {!user?.email ? <Link to={"/login"}>Login</Link>
-                : <Logout/>}
+                : <Logout className="logout-link" />}
 
             </nav>
 

@@ -40,7 +40,7 @@ function AddTask({fetchTasks}) {
     };
 
     return (
-        <div>
+        <div id="addTaskContainer">
             <h2>Add Task</h2>
             <label>
                 Title:

@@ -5,7 +5,8 @@
 #root {
     display: grid;
     grid-template-rows: auto 1fr auto; /* Remove 'auto' to give more space to the main content */
-    min-height: 100vh;
+    min-height: 90vh;
+    max-height: 95vh;
 }
 
 main{
@@ -16,6 +17,13 @@ main{
     border-radius: 1em;
     height: 90vh;
 
+}
+
+#addTaskContainer{
+    position: absolute;
+    bottom: 10%;
+    left: 20%;
+    transform: translateX(-50%);
 }
 
 
@@ -60,3 +68,4 @@ nav a{
     color:white;
     text-decoration: none;
 }
+
