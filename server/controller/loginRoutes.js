@@ -1,11 +1,19 @@
 import express from "express";
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 
 export const loginRoutes = express.Router();
 
-const DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration";
+const discoveryUrl = process.env.DISCOVERY_URL;
+const client_id = process.env.CLIENT_ID;
 
+loginRoutes.get("/auth/config", async (req, res) => {
 
+    //res.sendStatus(200).json({discoveryUrl, client_id});
+    res.send({discoveryUrl, client_id})
+})
 
 loginRoutes.post("/access_token", async (req, res) => {
     res.cookie("access_token", req.body.access_token, {signed:true});
@@ -15,7 +23,7 @@ loginRoutes.post("/access_token", async (req, res) => {
 })
 loginRoutes.get("/user", async (req, res) => {
     const {access_token} = req.signedCookies;
-    const res2 = await fetch(DISCOVERY_URL);
+    const res2 = await fetch(discoveryUrl);
     const discoveryDoc = await res2.json();
     const {userinfo_endpoint} = discoveryDoc;
 

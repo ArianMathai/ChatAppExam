@@ -33,7 +33,7 @@ function Tasks(){
             <h3>{errorMessage}</h3>
             <ul className="task-list">
                 {tasks.map((task) => (
-                    <li key={task.id} className="task-item">
+                    <li key={task.title} className="task-item">
                         <div className="task-list-task">
                             {task.title}
                         </div>

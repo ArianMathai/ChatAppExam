@@ -5,16 +5,16 @@ function GoogleLogin(){
 
     const [authorizationUrl, setAuthorizationUrl] = useState("");
 
-    const {client_id} = useContext(LoginContext);
-    const DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
+    const {google_client_id, google_discovery_url} = useContext(LoginContext);
+
     async function loadAuthorizationUrl(){
-        const res = await fetch(DISCOVERY_URL);
+        const res = await fetch(google_discovery_url);
         const discoveryDoc = await res.json();
 
         setAuthorizationUrl(discoveryDoc.authorization_endpoint + "?" + new URLSearchParams({
             response_type: "token",
             scope: "email",
-            client_id,
+            client_id: google_client_id,
             redirect_uri: window.location.origin + "/login/callback",
         }));
     }

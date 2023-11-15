@@ -11,12 +11,11 @@ function LoginCallback(){
 
 
         const hashObject = Object.fromEntries( new URLSearchParams(window.location.hash.substring(1)));
-        console.log(hashObject)
 
 
         const {access_token} = hashObject;
 
-        //setDebug(JSON.stringify(hashObject.access_token)); //access_token is what we use to see who the user is
+
 
         const res = await fetch("/api/login/access_token", {
             method: "POST",

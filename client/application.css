@@ -5,13 +5,13 @@
 #root {
     display: grid;
     grid-template-rows: auto 1fr auto; /* Remove 'auto' to give more space to the main content */
-    min-height: 90vh;
-    max-height: 95vh;
+    min-height: 85%;
+    max-height: 90%;
 }
 
 main{
     min-width: 80%;
-    max-width: 400px;
+    max-width: 90%;
     margin-inline: auto;
     margin-block: 1em;
     border-radius: 1em;
