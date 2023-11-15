@@ -5,7 +5,7 @@ import AddTask from "./AddTask";
 
 function Tasks(){
 
-    const {user} = useContext(LoginContext);
+    const {username} = useContext(LoginContext);
     const [tasks, setTasks] = useState([]);
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -27,7 +27,7 @@ function Tasks(){
 
 
 
-    return user?.email ? (
+    return username ? (
         <>
             <h2>Tasks</h2>
             <h3>{errorMessage}</h3>

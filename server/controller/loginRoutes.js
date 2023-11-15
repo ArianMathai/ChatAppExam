@@ -8,11 +8,13 @@ export const loginRoutes = express.Router();
 
 const discoveryUrl = process.env.DISCOVERY_URL;
 const client_id = process.env.CLIENT_ID;
+const microsoft_client_id = process.env.ACTIVE_DIRECTORY_CLIENT_ID;
+const microsoft_endpoint = process.env.ACTIVE_DIRECTORY_ENDPOINT;
 
 loginRoutes.get("/auth/config", async (req, res) => {
 
     //res.sendStatus(200).json({discoveryUrl, client_id});
-    res.send({discoveryUrl, client_id})
+    res.send({discoveryUrl, client_id, microsoft_client_id, microsoft_endpoint})
 })
 
 loginRoutes.post("/access_token", async (req, res) => {
@@ -27,7 +29,7 @@ loginRoutes.get("/user", async (req, res) => {
     const discoveryDoc = await res2.json();
     const {userinfo_endpoint} = discoveryDoc;
 
-    console.log({userinfo_endpoint, access_token})
+    console.log("inside /user " + userinfo_endpoint + " " + access_token)
 
     const resp = await fetch(userinfo_endpoint, {
         headers: {
@@ -36,6 +38,24 @@ loginRoutes.get("/user", async (req, res) => {
     })
 
     const userInfo = await resp.json();
+    res.send(userInfo);
+})
+loginRoutes.get("/microsoft/user", async (req, res) => {
+    const {access_token} = req.signedCookies;
+    const res2 = await fetch(microsoft_endpoint);
+    const discoveryDoc = await res2.json();
+    const {userinfo_endpoint} = discoveryDoc;
+
+    console.log("This is the userinfo endpoint and access token= "+userinfo_endpoint +"    "+ access_token)
+
+    const resp = await fetch(userinfo_endpoint, {
+        headers: {
+            "Authorization": `Bearer ${access_token}`
+        }
+    })
+
+    const userInfo = await resp.json();
+    console.log("userinfo "+userInfo)
     res.send(userInfo);
 })
 

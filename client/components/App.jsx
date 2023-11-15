@@ -10,56 +10,80 @@ function App(){
 
 
     const [user, setUser] = useState();
+    const [username, setUsername] = useState()
     const [google_client_id, setGoogle_client_id] = useState();
     const [googleDiscoveryUrl, setGoogleDiscoveryUrl] = useState();
+    const [microsoftEndpoint, setMicrosoftEndpoint] = useState();
+    const [microsoftClientId, setMicrosoftClientId] = useState();
 
-
-    async function loadUser(){
-        const res = await fetch("/api/login/user", {
-
-        })
+    async function loadUser() {
+        const res = await fetch("/api/login/user");
         const usr = await res.json();
         setUser(usr);
+        setUsername(usr.email);
+        console.log("user=" + user);
+
+        if (!user) {
+            const response = await fetch("/api/login/microsoft/user");
+            const micUser = await response.json();
+            setUser(micUser);
+            setUsername(micUser.email);
+            console.log("micuser" + micUser.email);
+        }
     }
 
-    async function fetchDiscoveryUrl(){
+
+    async function fetchLoginConfig(){
         const res = await fetch("/api/login/auth/config", {
 
         });
 
         const data = await res.json();
+        console.log(data)
 
         setGoogle_client_id(data.client_id);
         setGoogleDiscoveryUrl(data.discoveryUrl);
+        setMicrosoftClientId(data.microsoft_client_id);
+        setMicrosoftEndpoint(data.microsoft_endpoint);
     }
 
     useEffect(() => {
-        fetchDiscoveryUrl();
+        fetchLoginConfig();
     }, []);
 
     useEffect(() => {
-        loadUser();
-    }, []);
-
+        if (username === undefined) {
+            loadUser();
+        }
+    }, [username]);
 
 
 
     return(
-        <LoginContext.Provider value={{user, loadUser, google_client_id: google_client_id, google_discovery_url: googleDiscoveryUrl}}>
+        <LoginContext.Provider value={{
+            user,
+            username: username,
+            loadUser,
+            google_client_id: google_client_id,
+            google_discovery_url: googleDiscoveryUrl,
+            microsoft_endpoint: microsoftEndpoint,
+            microsoft_client_id: microsoftClientId
+        }}>
             <header>
-                <h2>Welcome to my exam</h2>
+                {username ?<h2>{username}</h2> : <h2>  </h2>}
             </header>
             <nav>
                 <Link to={"/"}>Home</Link>
                 <Link to={"/tasks"}>Tasks</Link>
                 <div style={{flex: 1}}></div>
-                {!user?.email ? <Link to={"/login"}>Login</Link>
+
+                {!username ? <Link to={"/login"}>Login</Link>
                 : <Logout className="logout-link" />}
 
             </nav>
 
             <main>
-                <AppRoutes />
+                {microsoftEndpoint !== undefined && <AppRoutes />}
             </main>
 
             <footer>Made by Arian</footer>
