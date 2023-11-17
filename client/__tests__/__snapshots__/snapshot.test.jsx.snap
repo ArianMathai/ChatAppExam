@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`frontend application react should render list of tasks 1`] = `
+[
+  <h2>
+    Tasks
+  </h2>,
+  <h3 />,
+  <ul
+    className="task-list"
+  >
+    <li
+      className="task-item"
+    >
+      <div
+        className="task-list-task"
+      >
+        Task 1
+      </div>
+    </li>
+    <li
+      className="task-item"
+    >
+      <div
+        className="task-list-task"
+      >
+        Task 2
+      </div>
+    </li>
+  </ul>,
+  <div
+    id="addTaskContainer"
+  >
+    <h2>
+      Add Task
+    </h2>
+    <label>
+      Title:
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <label>
+      Done:
+      <input
+        checked={false}
+        onChange={[Function]}
+        type="checkbox"
+      />
+    </label>
+    <button
+      onClick={[Function]}
+    >
+      Add Task
+    </button>
+  </div>,
+]
+`;
