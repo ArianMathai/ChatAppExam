@@ -14,7 +14,7 @@ function Home(){
 
         </>
             :
-            <div><Login/></div>
+            <div></div>
     )
 }
 export default Home;

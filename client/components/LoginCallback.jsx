@@ -15,21 +15,21 @@ function LoginCallback(){
 
         let { access_token, code } = hashObject;
 
-        console.log("client id " + microsoft_client_id)
 
         if (code) {
             console.log("inside code")
-            console.log("microsoft endpoint "+ microsoft_endpoint)
+
 
             const discoveryDocumentRes = await fetch(microsoft_endpoint);
             const discoveryDocument = await discoveryDocumentRes.json();
-            console.log("discoverydocument:", discoveryDocument);
+
 
             const { token_endpoint } = discoveryDocument;
-            console.log("token endpoint =", token_endpoint);
 
-
+            console.log("getting code verifier")
             const code_verifier = window.sessionStorage.getItem("code_verifier");
+            console.log("code verifier in loginCallback ", code_verifier)
+
 
             const response = await fetch(token_endpoint, {
                 method: "POST",
@@ -47,9 +47,9 @@ function LoginCallback(){
 
 
             access_token = json.access_token;
-            console.log("json access " + json.access_token)
-            console.log("accessToken: "+access_token)
-            await loadUser();
+            console.log("json accessToken ", json.access_token)
+            console.log("accessToken: ", access_token)
+            //await loadUser();
         }
 
 
@@ -70,6 +70,7 @@ function LoginCallback(){
     }
 
     useEffect(() => {
+        console.log("handeling callback")
         handleCallback();
     }, []);
 

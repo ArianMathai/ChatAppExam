@@ -9,18 +9,17 @@ function LoginWithMicrosoft(){
     async function loadAuthorizationUrl() {
 
 
-        console.log(microsoft_client_id);
-        console.log(microsoft_endpoint);
-
-        //const {authorization_endpoint} = await fetch(config_url);
-
         const code_verifier = randomString(50);
 
         window.sessionStorage.setItem("code_verifier", code_verifier);
+        console.log("Just set code verifier in sessionstorage ", code_verifier)
 
         const code_challenge = await sha256(code_verifier);
+        console.log("code challenge in loginbutton microsoft ", code_challenge)
 
-        //State, typ 38 min ut i filmen
+
+
+
         const state = randomString(50);
 
         window.sessionStorage.setItem("state", state);
@@ -45,6 +44,7 @@ function LoginWithMicrosoft(){
     }
 
     useEffect(() => {
+        console.log("loading auth url")
         loadAuthorizationUrl();
     }, []);
 

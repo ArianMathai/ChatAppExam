@@ -68,4 +68,8 @@ nav a{
     color:white;
     text-decoration: none;
 }
+.login-buttons-container {
+    display: flex;
+    gap: 1em;
+}
 

@@ -9,8 +9,10 @@ function Login(){
 
     return (
         <>
-            {google_discovery_url && <GoogleLogin />}
-            {microsoft_endpoint && <LoginWithMicrosoft />}
+            <div className="login-buttons-container">
+                {google_discovery_url && <GoogleLogin />}
+                {microsoft_endpoint && <LoginWithMicrosoft />}
+            </div>
         </>
 
     )

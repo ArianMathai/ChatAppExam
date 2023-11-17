@@ -39,7 +39,7 @@ function App(){
         });
 
         const data = await res.json();
-        console.log(data)
+        console.log("this is the stuff = ", data)
 
         setGoogle_client_id(data.client_id);
         setGoogleDiscoveryUrl(data.discoveryUrl);

@@ -19,22 +19,21 @@ function AddTask({fetchTasks}) {
 
     const handleAddTask = () => {
         console.log("isDone: " + isDone)
-        // Validate if the title is not empty
+
         if (title.trim() === "") {
             alert("Please enter a title for the task.");
             return;
         }
 
-        // Create a new task object
         const newTask = {
             title: title,
             isDone: isDone,
         };
 
-        // Pass the new task to the parent component
+
         onAddTask(newTask);
 
-        // Reset the input fields
+
         setTitle("");
         setIsDone(false);
     };
