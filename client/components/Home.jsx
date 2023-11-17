@@ -10,7 +10,7 @@ function Home(){
     return(
         user?.email ?
         <>
-            <h2>HOMEPAGE</h2>
+            <h2>HOME SWEET HOME</h2>
 
         </>
             :
