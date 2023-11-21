@@ -5,7 +5,7 @@ function MessageInput({room}){
 
     const [message,setMessage] = useState("");
 
-    const {user} = useContext(LoginContext);
+    const {user, username} = useContext(LoginContext);
 
 
 
@@ -17,7 +17,7 @@ function MessageInput({room}){
         try {
             const response = await fetch("/api/chat/postmessage", {
                 method: "POST",
-                body: JSON.stringify({user: user.email, message, roomName:room.room.roomName}),
+                body: JSON.stringify({username:username, user: user.email, message, roomName:room.room.roomName}),
                 headers: {
                     "Content-Type": "application/json"
                 }

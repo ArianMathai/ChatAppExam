@@ -4,7 +4,7 @@
 
 #root {
     display: grid;
-    grid-template-rows: auto 1fr auto; /* Remove 'auto' to give more space to the main content */
+    grid-template-rows: auto 1fr auto;
     min-height: 85%;
     max-height: 90%;
 }
@@ -35,18 +35,18 @@ footer {
 }
 .google-button {
     display: inline-block;
-    padding: 10px 20px; /* Adjust padding as needed */
-    background-color: #4285f4; /* Google's blue color */
+    padding: 10px 20px;
+    background-color: #4285f4;
     color: #fff;
     text-decoration: none;
     border: none;
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px;
     cursor: pointer;
     text-align: center;
 }
 
 .google-button:hover {
-    background-color: #357ae8; /* Darker blue on hover */
+    background-color: #357ae8;
 }
 
 
@@ -72,4 +72,57 @@ nav a{
     display: flex;
     gap: 1em;
 }
+.message-board {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.messageList {
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.message-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.message-line {
+    margin: 0;
+    font-size: 16px;
+}
+
+.message-input {
+    margin-top: 20px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button-container button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: #45a049;
+}
+.message-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+
+
 

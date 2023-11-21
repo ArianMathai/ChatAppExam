@@ -1,6 +1,12 @@
 import express from "express";
 import * as dotenv from 'dotenv';
-import {addMessageToDb, addRoomToDb, getAllRooms, getRoomBasedOnRoomName} from "../repository/chatRepo.js";
+import {
+    addMessageToDb,
+    addRoomToDb,
+    getAllRooms,
+    getMessagesBasedOnRoomName,
+    getRoomBasedOnRoomName
+} from "../repository/chatRepo.js";
 import {getAllUsers} from "../repository/userRepo.js";
 
 
@@ -33,9 +39,9 @@ chatRoutes.get("/getAllRooms", async (req, res) => {
     }
 })
 chatRoutes.post("/postmessage", async (req, res) => {
-    const {user, message, roomName} = req.body;
+    const {username, user, message, roomName} = req.body;
 
-    const response = await addMessageToDb(user, message, roomName);
+    const response = await addMessageToDb(username, user, message, roomName);
     if (!response.acknowledged){
         res.status(400).json({message: "failed to post message to db"})
     }
@@ -44,17 +50,28 @@ chatRoutes.post("/postmessage", async (req, res) => {
     }
 })
 
-chatRoutes.get("/getAllMessages", async (req, res) => {
+chatRoutes.get("/getAllMessages/:roomName", async (req, res) => {
+    const roomName = req.params.roomName;
+    console.log("Roomname in controller = ", roomName)
+
+    const response = await getMessagesBasedOnRoomName(roomName);
+    console.log("response in controller on messages = ", response)
+
+    if (!response){
+        res.status(400).json({message: "Could not retrieve messages"})
+    }
+    else{
+        res.status(200).json({messages: response})
+    }
 
 })
 
 chatRoutes.get("/getRoom/:roomName", async (req, res) => {
     const roomName = req.params.roomName;
-    console.log("Roomname in controller = ", roomName)
 
     const response = await getRoomBasedOnRoomName(roomName);
 
-    console.log("response in controller = ", response)
+
 
     if (!response){
         res.status(400).json({message: "no room with this name", roomExists: false})

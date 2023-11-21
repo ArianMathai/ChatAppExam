@@ -33,11 +33,23 @@ export async function getRoomBasedOnRoomName(roomName){
 
     return room;
 }
-
-export async function addMessageToDb(user, message, roomName){
+export async function getMessagesBasedOnRoomName(roomName){
+    console.log("Searching for messages in room with name: ", roomName);
 
     const client = await MongoClient.connect(uri);
     const db = await client.db("Exam");
     const collection = db.collection("messages");
-    return await collection.insertOne({user:user, message:message, roomName:roomName});
+    const messages = await collection.find({roomName}).toArray();
+
+    console.log("Found messages: ", messages);
+
+    return messages;
+}
+
+export async function addMessageToDb(username, user, message, roomName){
+
+    const client = await MongoClient.connect(uri);
+    const db = await client.db("Exam");
+    const collection = db.collection("messages");
+    return await collection.insertOne({username: username, user:user, message:message, roomName:roomName});
 }

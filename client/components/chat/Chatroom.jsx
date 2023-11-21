@@ -6,7 +6,8 @@ import MessageInput from "./MessageInput";
 function Chatroom(){
 
     const {user} = useContext(LoginContext);
-
+    const {username} = useContext(LoginContext);
+    const [messages, setMessages] = useState([])
     const [room, setRoom] = useState();
 
     const { roomName } = useParams();
@@ -21,6 +22,7 @@ function Chatroom(){
             console.log("setting room")
             console.log(data)
             setRoom(data);
+            fetchMessages();
         } else {
             console.log("Did not find room");
         }
@@ -33,9 +35,17 @@ function Chatroom(){
 
     async function fetchMessages(){
 
-        const res = await fetch("/api/chat/getAllMessages", {
+        const res = await fetch(`/api/chat/getAllMessages/${roomName}`, {
 
         })
+        const msg = await res.json();
+        console.log("MSG = ", msg.messages)
+
+        if (res.ok){
+            setMessages(msg.messages);
+        } else {
+            console.log("Did not retrieve messages")
+        }
 
     }
 
@@ -43,25 +53,31 @@ function Chatroom(){
 
     return (
         <>
-            {user.email ? (
+            {username ? (
                 <div className={"message-board"}>
                     {room ? (
                         <>
-                            <h2>Chatroom: {room.room.roomName}</h2>
-                            <div>
-                                {room.room.messages.map((message, index) => (
-                                    <div key={index}>
-                                        <p>{message}</p>
+                            <div className="message-board">
+                                <h2>Chatroom: {room.room.roomName}</h2>
+                                <div className="messageList">
+                                    {messages.map((message, index) => (
+                                        <div className="message-container" key={index}>
+                                            <p className="message-line">{message.username} : {message.message}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="message-input">
+                                    <label htmlFor="messageInput"></label>
+                                    <MessageInput room={room} />
+                                </div>
+                                <div className="button-container">
+                                    <Link to={"/chat/new"}>
+                                        <button>New chat</button>
+                                    </Link>
+                                </div>
+                            </div>
 
-                                    </div>
-                                ))}
-                            </div>
-                            <MessageInput room={room} />
-                            <div>
-                                <Link to={"/chat/new"}>
-                                    <button>New chat</button>
-                                </Link>
-                            </div>
+
                         </>
                     ) : (
                         <p>Loading room...</p>
