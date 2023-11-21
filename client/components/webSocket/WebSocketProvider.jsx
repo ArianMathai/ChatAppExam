@@ -18,9 +18,6 @@ function WebSocketProvider({ children }) {
 
         setWebSocket(ws);
 
-        return () => {
-            ws.close();
-        };
     }, [email]);
 
     return (

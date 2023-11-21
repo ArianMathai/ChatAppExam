@@ -48,9 +48,6 @@ function Chatroom(){
         if (webSocket) {
             webSocket.addEventListener("message", handleWebSocketMessage);
 
-            return () => {
-                webSocket.removeEventListener("message", handleWebSocketMessage);
-            };
         }
     }, [webSocket]);
 
