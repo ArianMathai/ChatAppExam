@@ -63,7 +63,7 @@ function NewChat() {
 
     return (
         <>
-            <form onSubmit={(e) => handleAddNewChat(e)}>
+            <form className="chat-form" onSubmit={(e) => handleAddNewChat(e)}>
                 <label>
                     Room name:
                     <div>
@@ -92,7 +92,7 @@ function NewChat() {
                             ))}
                         </select>
                     </div>
-                    <div>
+                    <div className="participants-list">
                         <ul>
                             {participants.map((participant) => (
                                 <li key={participant}>{participant}</li>
@@ -102,10 +102,14 @@ function NewChat() {
                 </label>
                 <button
                     type="submit"
+                    className="submit-button"
                     disabled={!isValidRoom}
-                >Create new chatroom</button>
+                >
+                    Create new chatroom
+                </button>
             </form>
         </>
+
     );
 }
 
