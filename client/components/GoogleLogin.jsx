@@ -13,7 +13,7 @@ function GoogleLogin(){
 
         setAuthorizationUrl(discoveryDoc.authorization_endpoint + "?" + new URLSearchParams({
             response_type: "token",
-            scope: "email",
+            scope: "email profile",
             client_id: google_client_id,
             redirect_uri: window.location.origin + "/login/callback",
         }));

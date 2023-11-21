@@ -10,7 +10,8 @@ function App(){
 
 
     const [user, setUser] = useState();
-    const [username, setUsername] = useState()
+    const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
     const [google_client_id, setGoogle_client_id] = useState();
     const [googleDiscoveryUrl, setGoogleDiscoveryUrl] = useState();
     const [microsoftEndpoint, setMicrosoftEndpoint] = useState();
@@ -19,16 +20,20 @@ function App(){
     async function loadUser() {
         const res = await fetch("/api/login/user");
         const usr = await res.json();
+        console.log("google usr obj = ", usr)
         setUser(usr);
-        setUsername(usr.email);
-        console.log("user=" + user);
+        setUsername(usr.name);
+        setEmail(usr.email)
+        console.log("googleuser=", usr.name);
 
         if (!user) {
             const response = await fetch("/api/login/microsoft/user");
             const micUser = await response.json();
+            console.log("name = " ,micUser.name)
             setUser(micUser);
-            setUsername(micUser.email);
-            console.log("micuser" + micUser.email);
+            setUsername(micUser.name);
+            setEmail(micUser.email)
+            console.log("micuser" , micUser.email);
         }
     }
 
@@ -63,6 +68,7 @@ function App(){
         <LoginContext.Provider value={{
             user,
             username: username,
+            email: email,
             loadUser,
             google_client_id: google_client_id,
             google_discovery_url: googleDiscoveryUrl,
@@ -75,6 +81,7 @@ function App(){
             <nav>
                 <Link to={"/"}>Home</Link>
                 <Link to={"/tasks"}>Tasks</Link>
+                <Link to={"/profile"}>Profile</Link>
                 <div style={{flex: 1}}></div>
 
                 {!username ? <Link to={"/login"}>Login</Link>
