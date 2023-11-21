@@ -49,24 +49,28 @@ function Profile(){
 
     return (
         username ? (
-            <div>
-                <h2>Profile</h2>
-                <p>Username: {user.name}</p>
-                <p>Email: {user.email}</p>
-                <div>Bio: {bio}</div>
-                <div>
-                    <label></label>
+            <div className={"profile-container"}>
+                <h2 className={"profile-heading"}>Profile</h2>
+                <p className={"profile-info"}>Username: {user.name}</p>
+                <p className={"profile-info"}>Email: {user.email}</p>
+                <div className={"profile-info"}>Bio: {bio}</div>
+                <div className={"profile-info"}>
+                    <label className={"bio-label"} htmlFor="bio">Bio:</label>
                     <textarea
                         id="bio"
+                        className={"bio-textarea"}
                         value={newBio}
                         onChange={(e) => setNewBio(e.target.value)}
                     />
                 </div>
-                <button onClick={handleUpdateBio}>Update Bio</button>
+                <button className={"update-bio-button"} onClick={handleUpdateBio}>Update Bio</button>
                 {updateSuccess !== null && (
-                    <p>{updateSuccess ? "Bio updated successfully!" : "Failed to update bio."}</p>
+                    <p className={"update-message"}>
+                        {updateSuccess ? "Bio updated successfully!" : "Failed to update bio."}
+                    </p>
                 )}
             </div>
+
         ) : (
             <h2>Login to see profile</h2>
         )

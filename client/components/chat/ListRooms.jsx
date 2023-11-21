@@ -32,16 +32,18 @@ function ListRooms(){
 
     return (
         <>
-            <ul>
+            <ul className={"list-room-ul"}>
                 {rooms.map((r, index) => (
-                    <li key={index}>
+                    <li className={"li-room-list"} key={index}>
                         <Link to={`/chatroom/${r.roomName}`}>
-                            <div>{r.roomName}</div>
+                            <div className={"roomname-container"} style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                                {r.roomName}
+                            </div>
                         </Link>
                     </li>
                 ))}
             </ul>
-            <div>
+            <div className="button-container">
                 <Link to={"/chat/new"}>
                     <button>New chat</button>
                 </Link>
