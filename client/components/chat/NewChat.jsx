@@ -9,43 +9,9 @@ function NewChat() {
     const [messages, setMessages] = useState([])
     const [rooms, setRooms] = useState([])
 
-    const [roomExists, setRoomExists] = useState(true);
 
     const {email} = useContext(LoginContext);
     const navigate = useNavigate();
-
-/*
-    async function checkForDuplicateRoomName(){
-        const res = await fetch("/api/chat/getRoom", {
-            method: "POST",
-            body: JSON.stringify({roomName}),
-            headers: {
-                "content-type": "application/json",
-            },
-        })
-
-        const data = await res.json()
-        console.log("roomData when checking if exists = ", data)
-
-        if (data.roomExists === true){
-
-            setRoomExists(true);
-        }
-        else{
-            setRoomExists(false);
-        }
-    }
-
-    const isValidRoomName = useMemo(() => {
-        if (roomName.length > 0 && roomExists){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }, [roomExists])
-
- */
 
     async function getAllRooms(){
         const res = await fetch("/api/chat/getAllRooms");
@@ -58,6 +24,9 @@ function NewChat() {
             console.log("Could not get rooms");
         }
     }
+    const isValidRoom = useMemo(() => {
+        return roomName.length > 0 && rooms.every(room => room.roomName !== roomName);
+    }, [ roomName, rooms ])
 
     async function handleAddNewChat(e){
         e.preventDefault();
@@ -78,21 +47,14 @@ function NewChat() {
         const res = await fetch("/api/login/getAllUsers");
         const data = await res.json();
         setUsers(data) /// set emails here
-
     }
-/*
-    useEffect(() => {
-        checkForDuplicateRoomName();
-    }, [roomName]);
-
- */
 
     useEffect(() => {
         fetchUserEmails();
         getAllRooms();
     }, []);
-
-    console.log("user array in newChat = ", users)
+    console.log(roomName.length > 0 && rooms.every(room => room.roomName !== roomName))
+    console.log("Roomname = ", roomName)
     function handleAddParticipant (selectedEmail) {
         if (!participants.includes(selectedEmail)) {
             setParticipants([...participants, selectedEmail]);
@@ -140,7 +102,7 @@ function NewChat() {
                 </label>
                 <button
                     type="submit"
-                    //disabled={isValidRoomName}
+                    disabled={!isValidRoom}
                 >Create new chatroom</button>
             </form>
         </>
