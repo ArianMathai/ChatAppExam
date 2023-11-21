@@ -1,5 +1,6 @@
 import express from "express";
 import * as dotenv from 'dotenv';
+import {addUserToDb} from "../repository/userRepo.js";
 
 dotenv.config();
 
@@ -38,8 +39,56 @@ loginRoutes.get("/user", async (req, res) => {
     })
 
     const userInfo = await resp.json();
-    res.send(userInfo);
+
+    const response = await addUserToDb(userInfo.name, userInfo.email);
+
+    if (!response.acknowledged) {
+        res.status(400).json({ message: response.message });
+    } else {
+        res.status(200).send(userInfo);
+    }
+
 })
+
+async function fetchMicrosoftUserInfo(accessToken) {
+    const res = await fetch(microsoft_endpoint);
+    const discoveryDoc = await res.json();
+    const { userinfo_endpoint } = discoveryDoc;
+
+    const userResponse = await fetch(userinfo_endpoint, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+    return userResponse.json();
+}
+
+
+loginRoutes.get("/microsoft/user", async (req, res) => {
+    try {
+        const { access_token } = req.signedCookies;
+
+        const userInfo = await fetchMicrosoftUserInfo(access_token);
+
+        console.log("userInfo in backend = ", userInfo);
+
+
+        const response = await addUserToDb(userInfo.name, userInfo.email);
+
+        if (!response.acknowledged) {
+            res.status(400).json({ message: response.message });
+        } else {
+            res.status(200).send(userInfo);
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+/*
 loginRoutes.get("/microsoft/user", async (req, res) => {
     const {access_token} = req.signedCookies;
     const res2 = await fetch(microsoft_endpoint);
@@ -55,9 +104,20 @@ loginRoutes.get("/microsoft/user", async (req, res) => {
     })
 
     const userInfo = await resp.json();
-    console.log("userinfo "+userInfo)
-    res.send(userInfo);
+    console.log("userInfo in backend = ", userInfo)
+
+    const response = await addUserToDb(userInfo.name, userInfo.email);
+
+    if (!response.acknowledged){
+        res.status(400).json({message: "failed to add user to db"})
+    }
+    else{
+        res.status(200).send(userInfo);
+    }
+
 })
+
+ */
 
 loginRoutes.get("/logout", async (req, res) => {
 
