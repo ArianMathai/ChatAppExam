@@ -1,6 +1,6 @@
 import express from "express";
 import * as dotenv from 'dotenv';
-import {addUserToDb, getAllUsers} from "../repository/userRepo.js";
+import {addUserToDb, getAllUsers, getUserBio, updateUserBio} from "../repository/userRepo.js";
 
 dotenv.config();
 
@@ -102,6 +102,34 @@ loginRoutes.get("/getAllUsers", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+loginRoutes.put("/updateBio", async (req, res) => {
+    const { email, newBio } = req.body;
+
+    const updatedUser = await updateUserBio(email, newBio);
+
+    if (updatedUser) {
+        res.status(200).json({ message: "Bio updated successfully", user: updatedUser, bio:updatedUser.bio});
+    } else {
+        res.status(400).json({ message: updatedUser.message});
+    }
+})
+loginRoutes.get("/getBio/:email", async (req, res) => {
+    const email = req.params.email;
+    console.log("email param ", email)
+
+    const userBio = await getUserBio(email);
+
+    if (!userBio){
+        res.status(400).json({message: "failed to retrieve bio"})
+    }
+    else{
+        console.log("bio to return ", userBio.bio)
+        res.status(200).json({message: "bio retrieved", bio:userBio.bio})
+    }
+
+
+})
 
 
 

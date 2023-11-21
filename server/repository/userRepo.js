@@ -36,6 +36,30 @@ export async function getAllUsers(){
 
     return await collection.find({}, { projection }).toArray();
 }
+export async function updateUserBio(email, newBio) {
+    const client = await MongoClient.connect(uri);
+    const db = client.db("Exam");
+    const collection = db.collection("user");
+
+    const updateResult = await collection.updateOne(
+        {email: email},
+        {$set:{bio: newBio}}
+    );
+
+    if (updateResult.modifiedCount > 0) {
+        const updatedDocument = await collection.findOne({ email: email });
+        return {success: true, bio:updatedDocument.bio};
+    } else {
+        return {success: false, message: "Update of bio not successful"};
+    }
+}
+export async function getUserBio(email) {
+    const client = await MongoClient.connect(uri);
+    const db = client.db("Exam");
+    const collection = db.collection("user");
+    return await collection.findOne({email});
+
+}
 
 /*
 export async function addUserToDb(username, email){
