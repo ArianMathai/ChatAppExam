@@ -2,7 +2,7 @@ import AppRoutes from "./AppRoutes";
 import {LoginContext} from "../context/LoginContext";
 import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import Logout from "./Logout";
+import Logout from "./auth/Logout";
 
 
 

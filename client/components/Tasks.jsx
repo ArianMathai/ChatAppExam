@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import {LoginContext} from "../context/LoginContext";
-import Login from "./Login";
+import Login from "./auth/Login";
 import AddTask from "./AddTask";
 
 function Tasks(){

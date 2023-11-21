@@ -1,11 +1,13 @@
 import {useState, useEffect, useContext, useMemo} from "react";
-import {LoginContext} from "../context/LoginContext";
+import {LoginContext} from "../../context/LoginContext";
 import {useNavigate} from "react-router-dom";
 
 function NewChat() {
     const [roomName, setRoomName] = useState("");
     const [participants, setParticipants] = useState([]);
     const [users, setUsers] = useState([]);
+    const [messages, setMessages] = useState([])
+
     const [roomExists, setRoomExists] = useState(true);
 
     const {email} = useContext(LoginContext);
@@ -47,9 +49,11 @@ function NewChat() {
     async function handleAddNewChat(e){
         e.preventDefault();
 
+
+
         const resp = await fetch("/api/chat/room", {
             method:"POST",
-            body: JSON.stringify({email, roomName, participants}),
+            body: JSON.stringify({email, roomName, participants, messages}),
             headers: {
                 "content-type": "application/json",
             },

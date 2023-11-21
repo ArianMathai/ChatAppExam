@@ -1,7 +1,7 @@
-import GoogleLogin from "./GoogleLogin";
+import GoogleLogin from "./auth/GoogleLogin";
 import {useContext} from "react";
 import {LoginContext} from "../context/LoginContext";
-import Login from "./Login";
+import Login from "./auth/Login";
 
 function Home(){
 

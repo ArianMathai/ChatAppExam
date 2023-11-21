@@ -1,6 +1,6 @@
 import GoogleLogin from "./GoogleLogin";
 import {useContext} from "react";
-import {LoginContext} from "../context/LoginContext";
+import {LoginContext} from "../../context/LoginContext";
 import LoginWithMicrosoft from "./LoginWithMicrosoft";
 
 function Login(){

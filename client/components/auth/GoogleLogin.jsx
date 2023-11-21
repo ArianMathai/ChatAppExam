@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {LoginContext} from "../context/LoginContext";
+import {LoginContext} from "../../context/LoginContext";
 
 function GoogleLogin(){
 
