@@ -8,7 +8,7 @@ function Profile(){
 
 
     return (
-        user ? (
+        user.email ? (
             <div>
                 <h2>Profile</h2>
                 <p>Username: {user.name}</p>

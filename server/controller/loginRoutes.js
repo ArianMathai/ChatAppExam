@@ -1,6 +1,6 @@
 import express from "express";
 import * as dotenv from 'dotenv';
-import {addUserToDb} from "../repository/userRepo.js";
+import {addUserToDb, getAllUsers} from "../repository/userRepo.js";
 
 dotenv.config();
 
@@ -86,6 +86,23 @@ loginRoutes.get("/microsoft/user", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+loginRoutes.get("/logout", async (req, res) => {
+
+    res.clearCookie("access_token", { signed: true });
+    res.sendStatus(204);
+})
+
+loginRoutes.get("/getAllUsers", async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        console.log("Users in get all users backend = ", users);
+        res.status(200).json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
 
 
 /*
@@ -119,8 +136,3 @@ loginRoutes.get("/microsoft/user", async (req, res) => {
 
  */
 
-loginRoutes.get("/logout", async (req, res) => {
-
-    res.clearCookie("access_token", { signed: true });
-    res.sendStatus(204);
-})

@@ -80,7 +80,7 @@ function App(){
             </header>
             <nav>
                 <Link to={"/"}>Home</Link>
-                <Link to={"/tasks"}>Tasks</Link>
+                <Link to={"/chatroom"}>Chat</Link>
                 <Link to={"/profile"}>Profile</Link>
                 <div style={{flex: 1}}></div>
 

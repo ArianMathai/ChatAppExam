@@ -27,6 +27,15 @@ export async function addUserToDb(username, email) {
         return { acknowledged: false, message: "Username or email is null" };
     }
 }
+export async function getAllUsers(){
+    const client = await MongoClient.connect(uri);
+    const db = client.db("Exam");
+    const collection = db.collection("user");
+
+    const projection = { username: 1, email: 1 };
+
+    return await collection.find({}, { projection }).toArray();
+}
 
 /*
 export async function addUserToDb(username, email){
@@ -38,10 +47,3 @@ export async function addUserToDb(username, email){
 }
 
  */
-
-export async function addTask(title, isDone){
-    const client = await MongoClient.connect(uri);
-    const db = await client.db("TaskAppMockExam");
-    const collection = db.collection("tasks");
-    return await collection.insertOne({title:title, isDone:isDone})
-}
