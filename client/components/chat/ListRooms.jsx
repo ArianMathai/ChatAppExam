@@ -1,10 +1,12 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import NewChat from "./NewChat";
+import {LoginContext} from "../../context/LoginContext";
 
 function ListRooms(){
 
     const [rooms, setRooms] = useState([]);
+    const {email} = useContext(LoginContext);
 
     async function fetchRooms(){
 
@@ -13,7 +15,8 @@ function ListRooms(){
         if (res.ok){
             const data = await res.json();
             console.log("Rooms data = ", data)
-            setRooms(data)
+            const filteredRooms = data.filter((r) => r.participants.includes(email));
+            setRooms(filteredRooms);
         }
         else{
             console.log("Failed to fetch rooms")

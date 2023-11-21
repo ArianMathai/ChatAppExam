@@ -55,7 +55,7 @@ function Profile(){
                 <p>Email: {user.email}</p>
                 <div>Bio: {bio}</div>
                 <div>
-                    <label>Bio:</label>
+                    <label></label>
                     <textarea
                         id="bio"
                         value={newBio}

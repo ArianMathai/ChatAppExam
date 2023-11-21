@@ -7,6 +7,7 @@ function NewChat() {
     const [participants, setParticipants] = useState([]);
     const [users, setUsers] = useState([]);
     const [messages, setMessages] = useState([])
+    const [rooms, setRooms] = useState([])
 
     const [roomExists, setRoomExists] = useState(true);
 
@@ -46,10 +47,20 @@ function NewChat() {
 
  */
 
+    async function getAllRooms(){
+        const res = await fetch("/api/chat/getAllRooms");
+        if (res.ok){
+            const data = await res.json();
+            console.log("RoomsData = ", data)
+            setRooms(data)
+        }
+        else{
+            console.log("Could not get rooms");
+        }
+    }
+
     async function handleAddNewChat(e){
         e.preventDefault();
-
-
 
         const resp = await fetch("/api/chat/room", {
             method:"POST",
@@ -58,8 +69,6 @@ function NewChat() {
                 "content-type": "application/json",
             },
         })
-
-
 
         navigate("/chatroom");
     }
@@ -80,6 +89,7 @@ function NewChat() {
 
     useEffect(() => {
         fetchUserEmails();
+        getAllRooms();
     }, []);
 
     console.log("user array in newChat = ", users)

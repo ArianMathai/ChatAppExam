@@ -1,11 +1,13 @@
 import {useContext, useEffect, useState} from "react";
 import {LoginContext} from "../../context/LoginContext";
+import {WebSocketContext} from "../webSocket/WebSocketProvider";
 
 function MessageInput({room}){
 
     const [message,setMessage] = useState("");
 
-    const {user, username} = useContext(LoginContext);
+    const {user, username, email} = useContext(LoginContext);
+    const webSocket = useContext(WebSocketContext);
 
 
 
@@ -22,7 +24,22 @@ function MessageInput({room}){
                     "Content-Type": "application/json"
                 }
             })
-            setMessage("");
+            if (response.ok) {
+                setMessage("");
+
+                if (webSocket) {
+                    const messageObject = {
+                        username: username,
+                        user: email,
+                        message: message,
+                        roomName: room.room.roomName,
+                    };
+                    webSocket.send(JSON.stringify(messageObject));
+                }
+            } else {
+
+                console.error("Failed to post message");
+            }
 
 
         } catch (error){

@@ -2,6 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {LoginContext} from "../../context/LoginContext";
 import MessageInput from "./MessageInput";
+import {WebSocketContext} from "../webSocket/WebSocketProvider";
 
 function Chatroom(){
 
@@ -9,6 +10,7 @@ function Chatroom(){
     const {username} = useContext(LoginContext);
     const [messages, setMessages] = useState([])
     const [room, setRoom] = useState();
+    const webSocket = useContext(WebSocketContext);
 
     const { roomName } = useParams();
     console.log("Roomname in chatroom = ", roomName, room)
@@ -32,6 +34,31 @@ function Chatroom(){
     useEffect(() => {
         fetchRoom()
     }, []);
+
+    useEffect(() => {
+        console.log("in useEffect with socket")
+
+        const handleWebSocketMessage = (event) => {
+            const data = JSON.parse(event.data);
+
+            console.log("Received message from server:", data);
+            setMessages((prevMessages) => [...prevMessages, data.message]);
+        };
+
+        if (webSocket) {
+            webSocket.addEventListener("message", handleWebSocketMessage);
+
+            return () => {
+                webSocket.removeEventListener("message", handleWebSocketMessage);
+            };
+        }
+    }, [webSocket]);
+
+    useEffect(() => {
+        fetchMessages();
+    }, []);
+
+
 
     async function fetchMessages(){
 

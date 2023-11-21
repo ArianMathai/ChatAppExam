@@ -3,6 +3,7 @@ import * as path from "path";
 import bodyParser from "body-parser";
 import {loginRoutes} from "./controller/loginRoutes.js";
 import cookieParser from "cookie-parser";
+import { WebSocketServer } from "ws";
 import * as dotenv from 'dotenv';
 import {taskRoutes} from "./controller/taskRoutes.js";
 import {chatRoutes} from "./controller/chatRoutes.js";
@@ -32,4 +33,26 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(process.env.PORT || 3000);
+const wsServer = new WebSocketServer({ noServer: true });
+
+const server = app.listen(process.env.PORT || 3000);
+
+const sockets = [];
+
+server.on("upgrade", (req, socket, head) => {
+
+    wsServer.handleUpgrade(req, socket, head, (socket) => {
+        sockets.push(socket);
+        socket.on("message", (object) => {
+
+            const message = JSON.parse(object);
+
+            for (const s of sockets){
+                s.send(JSON.stringify({message}))
+            }
+
+
+        })
+
+    });
+});
