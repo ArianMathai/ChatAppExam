@@ -6,7 +6,7 @@ import {LoginContext} from "../../context/LoginContext";
 function ListRooms(){
 
     const [rooms, setRooms] = useState([]);
-    const {email} = useContext(LoginContext);
+    const {username, email} = useContext(LoginContext);
 
     async function fetchRooms(){
 
@@ -31,7 +31,9 @@ function ListRooms(){
 
 
     return (
+        username ?
         <>
+            <h1 className={"chatroom-header"}>Chatrooms</h1>
             <ul className={"list-room-ul"}>
                 {rooms.map((r, index) => (
                     <li className={"li-room-list"} key={index}>
@@ -48,7 +50,7 @@ function ListRooms(){
                     <button>New chat</button>
                 </Link>
             </div>
-        </>
+        </> : <h2>Login to browse chatrooms</h2>
     );
 
 

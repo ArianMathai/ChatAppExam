@@ -55,7 +55,7 @@ function Profile(){
                 <p className={"profile-info"}>Email: {user.email}</p>
                 <div className={"profile-info"}>Bio: {bio}</div>
                 <div className={"profile-info"}>
-                    <label className={"bio-label"} htmlFor="bio">Bio:</label>
+                    <label className={"bio-label"} htmlFor="bio">Update bio:</label>
                     <textarea
                         id="bio"
                         className={"bio-textarea"}

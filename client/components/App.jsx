@@ -82,6 +82,7 @@ function App(){
                 <Link to={"/"}>Home</Link>
                 <Link to={"/chatroom"}>Chat</Link>
                 <Link to={"/profile"}>Profile</Link>
+                <Link to={"/profile/browse"}>Browse profiles</Link>
                 <div style={{flex: 1}}></div>
 
                 {!username ? <Link to={"/login"}>Login</Link>

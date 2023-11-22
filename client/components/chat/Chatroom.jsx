@@ -1,5 +1,5 @@
 import {Link, useParams} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {LoginContext} from "../../context/LoginContext";
 import MessageInput from "./MessageInput";
 import {WebSocketContext} from "../webSocket/WebSocketProvider";
@@ -11,6 +11,7 @@ function Chatroom(){
     const [messages, setMessages] = useState([])
     const [room, setRoom] = useState();
     const webSocket = useContext(WebSocketContext);
+    const messageRef = useRef(null);
 
     const { roomName } = useParams();
     console.log("Roomname in chatroom = ", roomName, room)
@@ -55,6 +56,12 @@ function Chatroom(){
         fetchMessages();
     }, []);
 
+    useEffect(() => {
+        if (messageRef.current) {
+            messageRef.current.scrollTop = messageRef.current.scrollHeight;
+        }
+    }, [messages]);
+
 
 
     async function fetchMessages(){
@@ -83,7 +90,7 @@ function Chatroom(){
                         <>
                             <div className="message-board">
                                 <h2>Chatroom: {room.room.roomName}</h2>
-                                <div className="messageList">
+                                <div className="messageList" ref={messageRef}>
                                     {messages.map((message, index) => (
                                         <div className="message-container" key={index}>
                                             <p className="message-line">{message.username} : {message.message}</p>

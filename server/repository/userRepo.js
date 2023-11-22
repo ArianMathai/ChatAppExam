@@ -32,7 +32,7 @@ export async function getAllUsers(){
     const db = client.db("Exam");
     const collection = db.collection("user");
 
-    const projection = { username: 1, email: 1 };
+    const projection = { username: 1, email: 1, bio: 1};
 
     return await collection.find({}, { projection }).toArray();
 }

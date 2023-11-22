@@ -37,7 +37,6 @@ function MessageInput({room}){
                     webSocket.send(JSON.stringify(messageObject));
                 }
             } else {
-
                 console.error("Failed to post message");
             }
 

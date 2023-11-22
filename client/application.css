@@ -263,7 +263,13 @@ li {
     margin-top: 10px;
     font-weight: bold;
 }
-
+.chatroom-header {
+    font-size: 1.5em;
+    margin-bottom: 1.5em;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+    text-align: center;
+}
 
 
 
