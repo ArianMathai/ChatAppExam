@@ -6,8 +6,8 @@ import {WebSocketContext} from "../webSocket/WebSocketProvider";
 
 function Chatroom(){
 
-    const {user} = useContext(LoginContext);
-    const {username} = useContext(LoginContext);
+
+    const {username, user} = useContext(LoginContext);
     const [messages, setMessages] = useState([])
     const [room, setRoom] = useState();
     const webSocket = useContext(WebSocketContext);
