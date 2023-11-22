@@ -11,7 +11,6 @@ global.fetch = jest.fn(() =>
             Promise.resolve([
                 { roomName: 'MockedRoom1', participants: ['user1', 'user2'] },
                 { roomName: 'MockedRoom2', participants: ['user1', 'user3'] },
-                // Add more mock rooms as needed
             ]),
     })
 );
