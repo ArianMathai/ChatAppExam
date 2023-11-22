@@ -5,8 +5,8 @@ import Home from '../components/Home';
 describe('Home component', () => {
 
     it('should have the correct class names', () => {
-        const tree = renderer.create(<Home />);
-        const instance = tree.root;
+        const component = renderer.create(<Home />);
+        const instance = component.root;
 
         const headerElement = instance.findByProps({ className: 'home-header' });
         const textDiv = instance.findByProps({ className: 'home-text-div' });
@@ -18,7 +18,7 @@ describe('Home component', () => {
     });
 
     it('should match the snapshot', () => {
-        const tree = renderer.create(<Home />);
-        expect(tree.toJSON()).toMatchSnapshot();
+        const component = renderer.create(<Home />);
+        expect(component).toMatchSnapshot();
     });
 });

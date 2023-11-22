@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshot testing profile should not render profile if not logged in 1`] = `
+exports[`snapshot testing profile should render not logged in if not logged in 1`] = `
 <h2>
   Login to see profile
 </h2>

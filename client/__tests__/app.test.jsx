@@ -14,14 +14,14 @@ jest.mock('../components/auth/Logout.jsx', () => 'Logout');
 
 describe('App Component', () => {
     it('should match the snapshot', async () => {
-        let tree;
+        let component;
         await act(() => {
-            tree = renderer.create(
+            component = renderer.create(
                 <MemoryRouter>
                     <App />
                 </MemoryRouter>
             );
         });
-        expect(tree.toJSON()).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
     });
 });
