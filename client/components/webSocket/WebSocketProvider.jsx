@@ -4,7 +4,7 @@ import { LoginContext } from "../../context/LoginContext";
 export const WebSocketContext = createContext();
 
 function WebSocketProvider({ children }) {
-  const { email } = useContext(LoginContext);
+ // const { email } = useContext(LoginContext);
   const [webSocket, setWebSocket] = useState(null);
 
   useEffect(() => {
@@ -14,9 +14,18 @@ function WebSocketProvider({ children }) {
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
     };
+    ws.onopen = () => {
+      console.log("WebSocket connection opened");
+    };
+
+    ws.onclose = (event) => {
+      console.log("WebSocket connection closed", event);
+
+    };
 
     setWebSocket(ws);
-  }, [email]);
+  }, []);
+
 
   return (
     <WebSocketContext.Provider value={webSocket}>
