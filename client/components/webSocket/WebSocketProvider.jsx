@@ -1,10 +1,10 @@
-import React, { createContext, useEffect, useContext, useState } from "react";
-import { LoginContext } from "../../context/LoginContext";
+import React, { createContext, useEffect, useState } from "react";
+
 
 export const WebSocketContext = createContext();
 
 function WebSocketProvider({ children }) {
- // const { email } = useContext(LoginContext);
+
   const [webSocket, setWebSocket] = useState(null);
 
   useEffect(() => {
