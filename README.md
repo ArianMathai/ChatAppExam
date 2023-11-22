@@ -22,12 +22,12 @@ I innleveringen skal dere lage et program med React og Express som lar brukeren 
 - [x] Applikasjonen har tester for backend kode i Express (valgfritt)
 - [ ] Applikasjonen bruker TypeScript for frontend-kode (valgfritt)
 - [ ] Applikasjonen bruker TypeScript for backend-kode (valgfritt)
-- [x] Applikasjonen lagrer tasks i MongoDB (valgfritt)
+- [x] Applikasjonen lagrer messages i MongoDB (valgfritt)
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - [x] Logge på med google og active direvtory
 - [x] Oppdatere bio i profil
 - [x] Unike navn på chatte rom
 - [x] Bruker websockets for å vise frem meldinger umiddelbart
-- [x] 
+
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/pgC2zHhI)
