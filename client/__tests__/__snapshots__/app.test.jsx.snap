@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component should match the snapshot 1`] = `
+[
+  <header>
+    <h2>
+       
+    </h2>
+  </header>,
+  <nav>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Home
+    </a>
+    <a
+      href="/chatroom"
+      onClick={[Function]}
+    >
+      Chat
+    </a>
+    <a
+      href="/profile"
+      onClick={[Function]}
+    >
+      Profile
+    </a>
+    <a
+      href="/profile/browse"
+      onClick={[Function]}
+    >
+      Browse profiles
+    </a>
+    <div
+      style={
+        {
+          "flex": 1,
+        }
+      }
+    />
+    <a
+      href="/login"
+      onClick={[Function]}
+    >
+      Login
+    </a>
+  </nav>,
+  <main />,
+  <footer>
+    Made by Arian
+  </footer>,
+]
+`;

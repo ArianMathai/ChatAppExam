@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListRooms Component renders rooms correctly 1`] = `
+[
+  <h1
+    className="chatroom-header"
+  >
+    Chatrooms
+  </h1>,
+  <ul
+    className="list-room-ul"
+  />,
+  <div
+    className="button-container"
+  >
+    <a
+      href="/chat/new"
+    >
+      <button>
+        New chat
+      </button>
+    </a>
+  </div>,
+]
+`;

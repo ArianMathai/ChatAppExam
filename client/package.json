@@ -13,6 +13,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
+    "@types/jest": "^29.5.8",
     "babel-jest": "^29.7.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",

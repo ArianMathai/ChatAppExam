@@ -1,30 +1,28 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
-import {LoginContext} from "../../context/LoginContext";
+import { LoginContext } from "../../context/LoginContext";
 
 export const WebSocketContext = createContext();
 
 function WebSocketProvider({ children }) {
-    const { email } = useContext(LoginContext);
-    const [webSocket, setWebSocket] = useState(null);
+  const { email } = useContext(LoginContext);
+  const [webSocket, setWebSocket] = useState(null);
 
-    useEffect(() => {
-        const protocol = window.location.protocol === "http:" ? "ws" : "wss";
-        const ws = new WebSocket(`${protocol}://${window.location.host}`);
-        
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            console.log("Received message from server:", data);
-        };
+  useEffect(() => {
+    const protocol = window.location.protocol === "http:" ? "ws" : "wss";
+    const ws = new WebSocket(`${protocol}://${window.location.host}`);
 
-        setWebSocket(ws);
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+    };
 
-    }, [email]);
+    setWebSocket(ws);
+  }, [email]);
 
-    return (
-        <WebSocketContext.Provider value={webSocket}>
-            {children}
-        </WebSocketContext.Provider>
-    );
+  return (
+    <WebSocketContext.Provider value={webSocket}>
+      {children}
+    </WebSocketContext.Provider>
+  );
 }
 
 export default WebSocketProvider;
